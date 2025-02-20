@@ -238,7 +238,7 @@ class Lindblad:
             rho_large=exp_H@rho_large@exp_H.conj().T
             for i in range(1+2*K+K**2+K**3):
                rho[:,:,it+1]+=rho_large[i*Ns:(i+1)*Ns,i*Ns:(i+1)*Ns]
-        return rho
+        return rho, H_large
     
 #     def Lindblad_SDE_third(self,T,num_t,psi0):
 #         H = self.H_op
