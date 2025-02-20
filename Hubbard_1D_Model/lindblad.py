@@ -227,7 +227,7 @@ class Lindblad:
         H_large=H_large+H_large.conj().T
         H_large[:Ns,:Ns]=H_0[:,:,0]
         E_H, V_H = la.eigh(H_large) 
-        print('H_0-H^\dag_0=',la.norm(H_0[:,:,0]-H_0[:,:,0].conj().T))
+        #print('H_0-H^\dag_0=',la.norm(H_0[:,:,0]-H_0[:,:,0].conj().T))
         exp_H=V_H @ la.expm(-1j*np.sqrt(tau)*np.diag(E_H)) @ V_H.conj().T
         rho = np.zeros((Ns,Ns,num_t+1), dtype=complex)
         rho[:,:,0]=np.outer(psi0,psi0.conj().T)
@@ -238,7 +238,7 @@ class Lindblad:
             rho_large=exp_H@rho_large@exp_H.conj().T
             for i in range(1+2*K+K**2+K**3):
                rho[:,:,it+1]+=rho_large[i*Ns:(i+1)*Ns,i*Ns:(i+1)*Ns]
-        return rho
+        return rho, H_large
     
 #     def Lindblad_SDE_third(self,T,num_t,psi0):
 #         H = self.H_op
